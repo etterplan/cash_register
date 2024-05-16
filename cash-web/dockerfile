@@ -1,9 +1,10 @@
 FROM node:22-alpine3.19
 
-RUN npm i react-router-dom
-
 WORKDIR /react/cash-web 
 
+#RUN npm install 
+
 #ENTRYPOINT ["/bin/sh"]
+CMD ["./start-up.sh"]
 # Wait forever
-CMD ["sh", "-c", "trap : TERM INT; sleep infinity & wait"]
+#CMD ["sh", "-c", "trap : TERM INT; sleep infinity & wait"]
