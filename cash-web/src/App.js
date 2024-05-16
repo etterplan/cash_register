@@ -3,8 +3,22 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Body from './pages/Body.js';
+import Header from './pages/Header.js';
+
 
 function App() {
+  return (
+      <div>
+          <Header />
+          <Body />
+      </div>
+  );
+}
+
+export default App;
+
+/* function App() {
   return (
     <Router>
       <div>
@@ -30,6 +44,6 @@ function App() {
       </div>
     </Router>
   );
-}
+} */
 
-export default App;
+//export default App;
