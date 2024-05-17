@@ -2,9 +2,12 @@ FROM node:22-alpine3.19
 
 WORKDIR /react/cash-web 
 
-#RUN npm install 
+COPY package*.json ./
 
+RUN npm install 
+
+#CMD ["npm", "start"]
 #ENTRYPOINT ["/bin/sh"]
-CMD ["./start-up.sh"]
+#CMD ["./start-up.sh"]
 # Wait forever
-#CMD ["sh", "-c", "trap : TERM INT; sleep infinity & wait"]
+CMD ["sh", "-c", "trap : TERM INT; sleep infinity & wait"]

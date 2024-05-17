@@ -2,7 +2,8 @@ services:
   cash-web:
     build: cash-web
     volumes:      
-      - .\cash-web:/react/cash-web
+      - ./cash-web:/react/cash-web
+      - /react/cash-web/node_modules
     ports:
       - 3000:3000
 
