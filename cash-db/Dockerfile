@@ -2,7 +2,7 @@
 FROM node:22-alpine3.19
 
 # Set the working directory in the container
-WORKDIR /react/cash-db-server
+WORKDIR /react/cash-web 
 
 # Copy the files to the container
 COPY . .

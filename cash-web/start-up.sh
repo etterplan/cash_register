@@ -1,6 +1,25 @@
 #!/usr/bin/env ash
-sleep 15
-logger "Script start-sh.sh is running"
-npx prisma migrate dev --name init
-npx prisma generate
-#npm start
+
+# Install Prisma
+npm install prisma
+
+# Install Prisma Client
+npm install @prisma/client
+
+# Install Express
+RUN npm install express
+
+# Install project dependencies
+npm install
+
+# ....
+# ? npx prisma migrate dev --name init
+
+# Generate Prisma Client
+# ? npx prisma generate
+
+# Start the server application
+npm start
+
+# Wait forever
+#sh -c "trap : TERM INT; sleep infinity & wait"
