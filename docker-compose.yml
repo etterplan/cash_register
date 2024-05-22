@@ -2,20 +2,32 @@ version: '3'
 services:
   cash-db:
     image: mysql:8.0
+    volumes:
+      - ./cash-db/database:/var/lib/mysql
     ports:
       - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: cash_register_100!
       MYSQL_DATABASE: cash_register_db
 
-  cash-web:
-    build: cash-web
+  cash-db-server:
+    build: cash-db-server
     volumes:      
-      - ./cash-web:/react/cash-web
-      - /react/cash-web/node_modules
+      - ./cash-db-server:/react/cash-db-server
+      - /react/cash-db-server/node_modules
     ports:
-      - "3000:3000"
+      - "4000:4000"
     depends_on:
       - cash-db
+
+  # cash-web:
+  #   build: cash-web
+  #   volumes:      
+  #     - ./cash-web:/react/cash-web
+  #     - /react/cash-web/node_modules
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - cash-db-server
       
 

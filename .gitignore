@@ -21,3 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Cash-db
+cash-db/database/
+
+# Cash-web
+cash-web/prisma/migrations/
+cash-db-server/prisma/migrations/

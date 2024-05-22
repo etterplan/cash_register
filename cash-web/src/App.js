@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
-import Header from './pages/header';
-import Body from './pages/body';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-    const [currentPage, setCurrentPage] = useState('home');
+    const [data, setData] = useState([]);
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
+    useEffect(() => {
+        axios.get('http://cash-db-server:4000/')
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }, []);
 
     return (
         <div>
-            <Header handlePageChange={handlePageChange} />
-            <Body currentPage={currentPage} />
+            <h1>Database Table Data</h1>
+            <ul>
+                {data.map(item => (
+                    <li key={item.id}>{item.columnName}</li>
+                ))}
+            </ul>
         </div>
     );
 }
