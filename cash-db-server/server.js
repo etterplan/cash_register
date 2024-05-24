@@ -2,7 +2,7 @@ const express = require('express');
 const readTableData = require('./readTableData');
 
 const app = express();
-const port = 4000;
+const port = 5000;
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');

@@ -16,18 +16,18 @@ services:
       - ./cash-db-server:/react/cash-db-server
       - /react/cash-db-server/node_modules
     ports:
-      - "4000:4000"
+      - "5000:5000"
     depends_on:
       - cash-db
 
-  # cash-web:
-  #   build: cash-web
-  #   volumes:      
-  #     - ./cash-web:/react/cash-web
-  #     - /react/cash-web/node_modules
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - cash-db-server
+  cash-web:
+    build: cash-web
+    volumes:      
+      - ./cash-web:/react/cash-web
+      - /react/cash-web/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - cash-db-server
       
 

@@ -7,7 +7,7 @@ npm install prisma
 npm install @prisma/client
 
 # Install Express
-RUN npm install express
+npm install express
 
 # Install project dependencies
 npm install
