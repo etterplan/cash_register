@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './pages/header';
+import Header from './pages/header'
 import Body from './pages/body';
 
 function App() {

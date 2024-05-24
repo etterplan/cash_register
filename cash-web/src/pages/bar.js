@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Bar() {
-  return (
-    <div>
-      <h1>Bar</h1>
-      <p>More to do</p>
-    </div>
-  );
-}
+const Bar = ({ guest, setSelectedNameFromBar }) => {
+    return (
+        <div>
+            <h1>Bar Page</h1>
+            <h2>{guest}</h2>
+        </div>
+    );
+};
 
 export default Bar;

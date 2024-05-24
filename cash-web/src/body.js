@@ -1,7 +1,7 @@
 import React from 'react';
-import Guests from './guests'
-import Bar from './bar'
-import Bill from './bill'
+import Guests from './pages/guests'
+import Bar from './pages/bar'
+import Bill from './pages/bill'
 
 const Body = ({ currentPage }) => {
     let content = null;
