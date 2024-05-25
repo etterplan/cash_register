@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Header from './pages/header'
-import Body from './pages/body';
+import Header from './header'
+import Body from './body';
 
 function App() {
     const [currentPage, setCurrentPage] = useState('home');

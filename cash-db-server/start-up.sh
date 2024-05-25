@@ -9,7 +9,7 @@ npm install @prisma/client
 # Install project dependencies
 npm install
 
-# ....
+# Apply new migration to database if necessary
 npx prisma migrate dev --name init
 
 # Generate Prisma Client

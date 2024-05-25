@@ -4,6 +4,9 @@ services:
     image: mysql:8.0
     volumes:
       - ./cash-db/database:/var/lib/mysql
+    networks:
+      cash_register_default:
+        ipv4_address: 172.18.0.2
     ports:
       - "3307:3306"
     environment:
@@ -15,6 +18,9 @@ services:
     volumes:      
       - ./cash-db-server:/react/cash-db-server
       - /react/cash-db-server/node_modules
+    networks:
+      cash_register_default:
+        ipv4_address: 172.18.0.3
     ports:
       - "5000:5000"
     depends_on:
@@ -25,9 +31,19 @@ services:
     volumes:      
       - ./cash-web:/react/cash-web
       - /react/cash-web/node_modules
+    networks:
+      cash_register_default:
+        ipv4_address: 172.18.0.4
     ports:
       - "3000:3000"
     depends_on:
       - cash-db-server
+
+networks:
+  cash_register_default:
+    ipam:
+      driver: default
+      config: 
+        - subnet: 172.18.0.0/16
       
 

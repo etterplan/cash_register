@@ -17,7 +17,7 @@ const Guests = ({ setGuest }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:5000');
+                const response = await fetch('http://172.18.0.3:5000/guests'); 
                 const jsonData = await response.json();
                 jsonData.sort((a, b) => a[sortBy].localeCompare(b[sortBy]));
                 setData(jsonData);
@@ -31,7 +31,7 @@ const Guests = ({ setGuest }) => {
 
     return (
         <div>
-            <h1>Guest List 1</h1>
+            <h1>Guest List</h1>
             <button onClick={handleSort}>Sort by {sortBy === 'lastName' ? 'First Name' : 'Last Name'}</button>
             <p><strong>Selected Name: {selectedName}</strong></p>
             <ul>
