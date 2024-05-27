@@ -13,7 +13,7 @@ function Header() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr' }}>
                     <Link to="/" style={{ fontSize: '2em', textAlign: 'center' }}>Guest</Link>
                     <Link to="/bar" style={{ fontSize: '2em', textAlign: 'center' }}>Bar</Link>
-                    <Link to="/bill" style={{ fontSize: '2em', textAlign: 'center' }}>Bill</Link>
+                    <Link to="/bill" style={{ fontSize: '2em', textAlign: 'center' }}>Account</Link>
                 </div>
             </header>
 
