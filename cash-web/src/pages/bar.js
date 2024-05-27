@@ -25,6 +25,24 @@ const Line = ({ item, maxLabelLength }) => {
   );
 };
 
+const Paying = () => {
+  console.log("Paying")
+}
+
+// Function .......
+const payRow = ({ guest, sum }) => {
+  return (
+    <div>
+      <h1>Guest: {guest}</h1>
+      <div>
+        <label htmlFor="textInput" className="longLabel">SUMMA: </label>
+        <label htmlFor="textInput" className="longLabel">100</label>
+        <button onClick={Paying}>Pay</button>
+    </div>
+    </div>
+  );
+};
+
 const Bar = ({ guest, setSelectedNameFromBar }) => {
   //  const lines = ['Mat', 'Vin', 'Snapps', 'Öl', 'Öl 0.0%']; // Updating the array with strings
   //  const maxLabelLength = 20; //Math.max(...lines.map(item => item.length)) + 'ch';
@@ -49,15 +67,12 @@ const Bar = ({ guest, setSelectedNameFromBar }) => {
     fetchData();
   }, []);
 
-  const maxLabelLength = 20 //Math.max(...lines.map(item => item.length)) + 'ch';
-
-//  <Line key={index} item={line} maxLabelLength={maxLabelLength} />
+  //const maxLabelLength = 20 //Math.max(...lines.map(item => item.length)) + 'ch';
 
   return (
     <div>
       <div>
-        <h1>Bar Page</h1>
-        <h2>{guest}</h2>
+        {payRow(guest)}
       </div>
       <div>
         {lines.map((line, index) => (
