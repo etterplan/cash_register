@@ -13,3 +13,10 @@ model Guest {
   lastName  String
   email     String  @unique
 }
+
+model Articles {
+  id        Int     @id @default(autoincrement())
+  article   String
+  price     String
+}
+
