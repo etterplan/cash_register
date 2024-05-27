@@ -7,6 +7,9 @@ WORKDIR /react/cash-db-server
 # Copy the files to the container
 COPY . .
 
+# Expose the port the app runs on
+EXPOSE 5000
+
 # Start the set-up script, it will start the application.
 CMD ["sh", "./start-up.sh"]
 

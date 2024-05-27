@@ -1,10 +1,19 @@
 #!/usr/bin/env ash
 
+# DEBUG
+apk add curl
+apk add mysql mysql-client
+apk --update add mysql-client mariadb-connector-c
+# Connect to database: mysql -h 172.18.0.2 -u root -P 3306 -p
+
 # Install Prisma
 npm install prisma
 
 # Install Prisma Client
 npm install @prisma/client
+
+# Install cors
+npm install cors
 
 # Install project dependencies
 npm install

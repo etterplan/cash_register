@@ -1,13 +1,15 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-//const cors = require('cors');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const port = 5000;
 const prisma = new PrismaClient();
 
-//app.use(cors());
+app.use(cors());
+app.use(express.json());
+
 
 app.get('/guests', async (req, res) => {
   try {
@@ -19,8 +21,8 @@ app.get('/guests', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${port}`);
 });
 
 
