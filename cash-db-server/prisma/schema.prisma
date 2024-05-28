@@ -20,3 +20,8 @@ model Articles {
   price     String
 }
 
+model BarAccount {
+  id        Int     @id @default(autoincrement())
+  guest_id  Int
+  article   String
+}
