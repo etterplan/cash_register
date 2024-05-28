@@ -16,38 +16,113 @@ prisma.$on('query', e => {
 
 app.get('/guests', async (req, res) => {
   try {
-    const guests = await prisma.guest.findMany();
-    res.json(guests);
+    const result = await prisma.guests.findMany();
+    res.json(result);
   } catch (error) {
     console.error('Guests: Error retrieving data: ', error);
     res.status(500).send('Guests: Internal Server Error');
   }
 });
 
+app.post('/guests', async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+  try {
+    const result = await prisma.guests.create({
+      data: {
+        firstName,
+        lastName,
+        email
+      }
+    });
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Guests: Error creating data: ', error);
+    res.status(500).send('Guests: Internal Server Error - ' + error.message);
+  }
+});
+
 app.get('/articles', async (req, res) => {
   try {
-    const articles = await prisma.articles.findMany();
-    res.json(articles);
+    const result = await prisma.articles.findMany();
+    res.json(result);
   } catch (error) {
     console.error('Articles: Error retrieving data: ', error);
     res.status(500).send('Articles: Internal Server Error');
   }
 });
 
-app.post('/baraccount', async (req, res) => {
-  const { guest_id, article } = req.body;
+app.post('/articles', async (req, res) => {
+  const { article, price } = req.body;
   try {
-    const invoice = await prisma.barAccount.create({
+    const result = await prisma.articles.create({
       data: {
-        guest_id,
-        article
+        article,
+        price
       }
     });
     
-    res.json(invoice);
+    res.json(result);
+  } catch (error) {
+    console.error('Articles: Error creating data: ', error);
+    res.status(500).send('Articles: Internal Server Error - ' + error.message);
+  }
+});
+
+app.get('/baraccount', async (req, res) => {
+  try {
+    const result = await prisma.barAccount.findMany();
+    res.json(result);
+  } catch (error) {
+    console.error('BarAccount: Error retrieving data: ', error);
+    res.status(500).send('BarAccount: Internal Server Error');
+  }
+});
+
+app.post('/baraccount', async (req, res) => {
+  const { guest_id, time, purchase_id } = req.body;
+  try {
+    const result = await prisma.barAccount.create({
+      data: {
+        guest_id,
+        time,
+        purchase_id
+      }
+    });
+    
+    res.json(result);
   } catch (error) {
     console.error('BarAccount: Error creating data: ', error);
     res.status(500).send('BarAccount: Internal Server Error - ' + error.message);
+  }
+});
+
+app.get('/purchase', async (req, res) => {
+  try {
+    const result = await prisma.purchase.findMany();
+    res.json(result);
+  } catch (error) {
+    console.error('Purchase: Error retrieving data: ', error);
+    res.status(500).send('Purchase: Internal Server Error');
+  }
+});
+
+app.post('/purchase', async (req, res) => {
+  const { purchase_id, article, amount, price } = req.body;
+  try {
+    const result = await prisma.purchase.create({
+      data: {
+        purchase_id,
+        article,
+        amount,
+        price
+      }
+    });
+    
+    res.json(result);
+  } catch (error) {
+    console.error('Purchase: Error creating data: ', error);
+    res.status(500).send('Purchase: Internal Server Error - ' + error.message);
   }
 });
 
