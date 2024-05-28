@@ -3,53 +3,80 @@ import './bar.css';
 
 const API_BASE_URL = 'http://localhost:5000';
 
-const Bar = ({ guest, setSelectedNameFromBar }) => {
+const Bar = ({ guest }) => {
+  const [values, setValues] = useState([]);
   const [billSum, setBillSum] = useState(0);
+  const [lines, setLines] = useState([]);
 
-  const Line = ({ item, maxLabelLength }) => {
-    const [value, setValue] = useState(0);
-    const [myItem] = useState(item);
+  function fnk(line, index) {
+    let sum = 0;
+    console.log(line.price + ' : ' + values[index] + ' : ' + index);
+    sum = line.price * values[index];
+    return sum;
+  };
+
+  const calculateBill = () => {
+    let sum = 0;
+    {lines.map((line, index) => (
+      sum += fnk(line, index)
+    ))}
+    setBillSum(sum);
+  };
+
+  const Line = ({ index, item, maxLabelLength }) => {
+    const [value, setValue] = useState(values[index]);
 
     const increaseValue = () => {
-      setValue(value + 1);
-      setBillSum(parseInt(billSum + parseFloat(myItem.price)))
+      let newValue = value + 1;
+      setValue(newValue);
+      values[index] = newValue;
+      calculateBill();
     };
 
     const decreaseValue = () => {
-      setValue(value - 1);
-      setBillSum(parseInt(billSum - parseFloat(myItem.price)))
+      if (value > 0) {
+        let newValue = value - 1;
+        setValue(newValue);
+        values[index] = newValue;
+        calculateBill();
+      }
     };
 
     return (
       <div>
-        <input type="text" id="textInput" className="smallInput" value={value} readOnly />
-        <label htmlFor="textInput" className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
-        <label htmlFor="textInput" className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
+        <input type="text" value={values[index]} readOnly style={{ width: '3ch' }} />
+        <label className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
+        <label className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
         <button onClick={increaseValue}>+</button>
         <button onClick={decreaseValue}>-</button>
       </div>
     );
   };
 
+  const [payButton, setPayButton] = useState('Pay');
+
   const Paying = () => {
-    console.log("Paying")
-  }
+    console.log("Paying");
+    if (payButton === 'Pay') {
+      setPayButton('Paid');
+    } else {
+      setPayButton('Pay');
+    }
+  };
 
   // Function .......
-  const payRow = ({ guest, sum }) => {
+  const payRow = ({ guest }) => {
     return (
       <div>
         <h1>Guest: {guest}</h1>
         <div>
           <label htmlFor="textInput" className="longLabel">SUMMA: </label>
           <label htmlFor="textInput" className="longLabel">{billSum}</label>
-          <button onClick={Paying}>Pay</button>
+          <button onClick={Paying}>{payButton}</button>
         </div>
       </div>
     );
   };
-
-  const [lines, setLines] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +89,11 @@ const Bar = ({ guest, setSelectedNameFromBar }) => {
         });
         const jsonData = await response.json();
         setLines(jsonData);
+
+        // Create a new array initialized to 0 based on the length of jsonData
+        const newValues = Array.from({ length: jsonData.length }, () => 0);
+        setValues(newValues);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -70,16 +102,14 @@ const Bar = ({ guest, setSelectedNameFromBar }) => {
     fetchData();
   }, []);
 
-  //const maxLabelLength = 20 //Math.max(...lines.map(item => item.length)) + 'ch';
-
   return (
     <div>
       <div>
-        {payRow(guest)}
+        {payRow({ guest })}
       </div>
       <div>
         {lines.map((line, index) => (
-          <Line key={index} item={line} maxLabelLength='20ch' />
+          <Line key={index} index={index} item={line} maxLabelLength='20ch' />
         ))}
       </div>
     </div>

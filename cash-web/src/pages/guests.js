@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const API_BASE_URL = 'http://localhost:5000'; // Update this to use the correct IP if necessary
-//const API_BASE_URL = 'http://cash-db-server:5000'; // Update this to use the correct IP if necessary
+const API_BASE_URL = 'http://localhost:5000'; // 
+
 
 const Guests = ({ setGuest }) => {
     const [data, setData] = useState([]);
