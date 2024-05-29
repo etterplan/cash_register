@@ -2,6 +2,7 @@ import React from 'react';
 import Guests from './pages/guests'
 import Bar from './pages/bar'
 import Bill from './pages/bill'
+import Settings from './pages/settings'
 
 const Body = ({ currentPage }) => {
     let content = null;
@@ -15,6 +16,9 @@ const Body = ({ currentPage }) => {
             break;
         case 'bill':
             content = <div><Bill /></div>;
+            break;
+        case 'settings':
+            content = <div><Settings /></div>;
             break;
         default:
             content = null;
