@@ -6,34 +6,18 @@ export async function addGuest(firstName, lastName, email) {
     createRow('guests', data);
 }
 
-async function addGuestData(data) {
-    createRow('guests', data);
-}
-
-async function addArticle(article, price) {
+export async function addArticle(article, price) {
     const data = { article, price };
     createRow('articles', data);
 }
 
-async function addArticleData(data) {
-    createRow('articles', data);
-}
-
-async function addBarAccount(guestId, time, purchaseId) {
+export async function addBarAccount(guestId, time, purchaseId) {
     const data = { guestId, time, purchaseId };
     createRow('baraccount', data);
 }
 
-async function addBarAccountData(data) {
-    createRow('baraccount', data);
-}
-
-async function addPurchase(purchaseId, article, amout, price) {
+export async function addPurchase(purchaseId, article, amout, price) {
     const data = { purchaseId, article, amout, price };
-    createRow('purchase', data);
-}
-
-async function addPurchaseData(data) {
     createRow('purchase', data);
 }
 
