@@ -1,27 +1,45 @@
-const URL = 'http://172.18.0.3:5000';
+//const URL = 'http://172.18.0.3:5000';
+const URL = 'http://localhost:5000';
  
-async function createGuest(firstName, lastName, email) {
+export async function addGuest(firstName, lastName, email) {
     const data = { firstName, lastName, email };
     createRow('guests', data);
 }
 
-async function createArticle(article, price) {
+async function addGuestData(data) {
+    createRow('guests', data);
+}
+
+async function addArticle(article, price) {
     const data = { article, price };
     createRow('articles', data);
 }
 
-async function createBarAccount(guestId, time, purchaseId) {
+async function addArticleData(data) {
+    createRow('articles', data);
+}
+
+async function addBarAccount(guestId, time, purchaseId) {
     const data = { guestId, time, purchaseId };
     createRow('baraccount', data);
 }
 
-async function createPurchase(purchaseId, article, amout, price) {
+async function addBarAccountData(data) {
+    createRow('baraccount', data);
+}
+
+async function addPurchase(purchaseId, article, amout, price) {
     const data = { purchaseId, article, amout, price };
+    createRow('purchase', data);
+}
+
+async function addPurchaseData(data) {
     createRow('purchase', data);
 }
 
 async function createRow(table, data) {
     try {
+        console.log(`${URL}/${table}`)
         const response = await fetch(`${URL}/${table}`, {
             method: 'POST',
             headers: {

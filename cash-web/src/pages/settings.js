@@ -1,9 +1,10 @@
 import React from 'react';
+import { populateTableGuests } from '../components/testdb'
 
 function Settings() {
 
   const initializeDB = () => {
-    console.log('InitializeDB')
+    populateTableGuests();
   };
 
   return (
