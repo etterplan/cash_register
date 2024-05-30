@@ -17,9 +17,11 @@ const Bar = ({ guest }) => {
 
   const calculateBill = () => {
     let sum = 0;
-    {lines.map((line, index) => (
-      sum += fnk(line, index)
-    ))}
+    {
+      lines.map((line, index) => (
+        sum += fnk(line, index)
+      ))
+    }
     setBillSum(sum);
   };
 
@@ -44,11 +46,25 @@ const Bar = ({ guest }) => {
 
     return (
       <div>
-        <input type="text" value={values[index]} readOnly style={{ width: '3ch' }} />
-        <label className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
-        <label className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
-        <button onClick={increaseValue}>+</button>
-        <button onClick={decreaseValue}>-</button>
+        <table>
+          <tr>
+            <td>
+              <input value={item.article} class="article" readOnly style={{width: '25ch'}}/>
+            </td>
+            <td>
+              <input value={item.price} class="article" readOnly style={{width: '5ch'}}/>
+            </td>
+            <td>
+              <input value={values[index]} class="amount" readOnly style={{width: '3ch'}}/>
+            </td>
+            <td>
+              <button onClick={increaseValue}>+</button>
+            </td>
+            <td>
+              <button onClick={decreaseValue}>-</button>
+            </td>
+          </tr>
+        </table>
       </div>
     );
   };
