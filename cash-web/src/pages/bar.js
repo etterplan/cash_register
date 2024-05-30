@@ -44,8 +44,6 @@ const Bar = ({ guest }) => {
       }
     };
 
-//    <input value={values[index]} type="text" readOnly style={{ width: '3ch', marginRight: '10px'}}/>
-
     return (
       <div>
         <table>
@@ -69,42 +67,6 @@ const Bar = ({ guest }) => {
         </table>
       </div>
     );
-
-    // return (
-    //   <div style={{ display: 'flex', alignItems: 'center' }}>
-    //     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-    //       <div>
-    //         <input type="text" value={values[index]} readOnly style={{ width: '3ch', marginRight: '10px' }} />
-    //         <label className="longLabel" style={{ marginBottom: '5px' }}>{item.article}</label>
-    //         <label className="longLabel" style={{ marginBottom: '5px' }}>{item.price}</label>
-    //         <button onClick={increaseValue} style={{ marginLeft: '10px' }}>+</button>
-    //         <button onClick={decreaseValue} style={{ marginLeft: '5px' }}>-</button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
-
-    // return (
-    //   <div style={{ display: 'flex', alignItems: 'center' }}>
-    //     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-    //       <input type="text" value={values[index]} readOnly style={{ width: '3ch', marginRight: '10px' }} />
-    //       <label className="longLabel" style={{ marginBottom: '5px' }}>{item.article}</label>
-    //       <label className="longLabel" style={{ marginBottom: '5px' }}>{item.price}</label>
-    //       <button onClick={increaseValue} style={{ marginLeft: '10px' }}>+</button>
-    //       <button onClick={decreaseValue} style={{ marginLeft: '5px' }}>-</button>
-    //     </div>
-    //   </div>
-    // );
-
-    // return (
-    //   <div>
-    //     <input type="text" value={values[index]} readOnly style={{ width: '3ch' }} />
-    //     <label className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
-    //     <label className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
-    //     <button onClick={increaseValue}>+</button>
-    //     <button onClick={decreaseValue}>-</button>
-    //   </div>
-    // );
   };
 
   const [payButton, setPayButton] = useState('Pay');
