@@ -5,6 +5,17 @@
     align-items: center;
   }
   
+  .article { 
+    border: none; 
+    outline: none;
+    text-align: right;
+    font-size: 20px;
+  }
+  
+  .amount { 
+    font-size: 20px;
+  }
+  
   .title {
     font-size: 24px;
     font-weight: bold;

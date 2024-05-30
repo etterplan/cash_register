@@ -17,9 +17,11 @@ const Bar = ({ guest }) => {
 
   const calculateBill = () => {
     let sum = 0;
-    {lines.map((line, index) => (
-      sum += fnk(line, index)
-    ))}
+    {
+      lines.map((line, index) => (
+        sum += fnk(line, index)
+      ))
+    }
     setBillSum(sum);
   };
 
@@ -42,15 +44,67 @@ const Bar = ({ guest }) => {
       }
     };
 
+//    <input value={values[index]} type="text" readOnly style={{ width: '3ch', marginRight: '10px'}}/>
+
     return (
       <div>
-        <input type="text" value={values[index]} readOnly style={{ width: '3ch' }} />
-        <label className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
-        <label className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
-        <button onClick={increaseValue}>+</button>
-        <button onClick={decreaseValue}>-</button>
+        <table>
+          <tr>
+            <td>
+              <input value={item.article} class="article" readOnly style={{width: '25ch'}}/>
+            </td>
+            <td>
+              <input value={item.price} class="article" readOnly style={{width: '5ch'}}/>
+            </td>
+            <td>
+              <input value={values[index]} class="amount" readOnly style={{width: '3ch'}}/>
+            </td>
+            <td>
+              <button onClick={increaseValue}>+</button>
+            </td>
+            <td>
+              <button onClick={decreaseValue}>-</button>
+            </td>
+          </tr>
+        </table>
       </div>
     );
+
+    // return (
+    //   <div style={{ display: 'flex', alignItems: 'center' }}>
+    //     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+    //       <div>
+    //         <input type="text" value={values[index]} readOnly style={{ width: '3ch', marginRight: '10px' }} />
+    //         <label className="longLabel" style={{ marginBottom: '5px' }}>{item.article}</label>
+    //         <label className="longLabel" style={{ marginBottom: '5px' }}>{item.price}</label>
+    //         <button onClick={increaseValue} style={{ marginLeft: '10px' }}>+</button>
+    //         <button onClick={decreaseValue} style={{ marginLeft: '5px' }}>-</button>
+    //       </div>
+    //     </div>
+    //   </div>
+    // );
+
+    // return (
+    //   <div style={{ display: 'flex', alignItems: 'center' }}>
+    //     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+    //       <input type="text" value={values[index]} readOnly style={{ width: '3ch', marginRight: '10px' }} />
+    //       <label className="longLabel" style={{ marginBottom: '5px' }}>{item.article}</label>
+    //       <label className="longLabel" style={{ marginBottom: '5px' }}>{item.price}</label>
+    //       <button onClick={increaseValue} style={{ marginLeft: '10px' }}>+</button>
+    //       <button onClick={decreaseValue} style={{ marginLeft: '5px' }}>-</button>
+    //     </div>
+    //   </div>
+    // );
+
+    // return (
+    //   <div>
+    //     <input type="text" value={values[index]} readOnly style={{ width: '3ch' }} />
+    //     <label className="longLabel" style={{ width: maxLabelLength }}>{item.article}</label>
+    //     <label className="longLabel" style={{ width: maxLabelLength }}>{item.price}</label>
+    //     <button onClick={increaseValue}>+</button>
+    //     <button onClick={decreaseValue}>-</button>
+    //   </div>
+    // );
   };
 
   const [payButton, setPayButton] = useState('Pay');
