@@ -42,6 +42,32 @@ app.post('/guests', async (req, res) => {
   }
 });
 
+app.get('/get_guest_id', async (req, res) => {
+  const { firstName, lastName } = req.query;
+
+  try {
+    const results = await prisma.guests.findMany({
+      where: {
+        firstName: firstName,
+        lastName: lastName
+      },
+      select: {
+        id: true,
+        email: true
+      }
+    });
+
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.status(404).send('Guests not found');
+    }
+  } catch (error) {
+    console.error('Get_guest_ids: Error retrieving data: ', error);
+    res.status(500).send('Get_guest_ids: Internal Server Error');
+  }
+});
+
 app.get('/articles', async (req, res) => {
   try {
     const result = await prisma.articles.findMany();
