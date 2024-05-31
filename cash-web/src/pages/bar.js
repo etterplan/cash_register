@@ -5,41 +5,35 @@ import './bar.css';
 const API_BASE_URL = 'http://localhost:5000';
 
 const Bar = ({ guest }) => {
-  const [values, setValues] = useState([]);
+  const [amounts, setAmounts] = useState([]);
   const [billSum, setBillSum] = useState(0);
-  const [lines, setLines] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [payButton, setPayButton] = useState('Pay');
 
-  const calculateSum = () => {
+  const calculateBill = () => {
     let sum = 0;
-    lines.map((line, index) => (
-      sum += (line.price * values[index])
+    articles.map((line, index) => (
+      sum += (line.price * amounts[index])
     ))
     setBillSum(sum);
   };
 
-  // function saveBill() {
-  //   let firstName = 'Arne';
-  //   let lastName = 'Anka';
-  //   result = useDataFetching(`http://localhost:5000/get_guest_id?firstName=${firstName}&lastName=${lastName}`);
-  //   console.log(result);
-  // }
-
   const Line = ({ index, item, maxLabelLength }) => {
-    const [value, setValue] = useState(values[index]);
+    const [value, setValue] = useState(amounts[index]);
 
     const increaseValue = () => {
       let newValue = value + 1;
       setValue(newValue);
-      values[index] = newValue;
-      calculateSum();
+      amounts[index] = newValue;
+      calculateBill();
     };
 
     const decreaseValue = () => {
       if (value > 0) {
         let newValue = value - 1;
         setValue(newValue);
-        values[index] = newValue;
-        calculateSum();
+        amounts[index] = newValue;
+        calculateBill();
       }
     };
 
@@ -55,7 +49,7 @@ const Bar = ({ guest }) => {
                 <input value={item.price} className="article" readOnly style={{ width: '5ch' }} />
               </td>
               <td>
-                <input value={values[index]} className="amount" readOnly style={{ width: '3ch' }} />
+                <input value={amounts[index]} className="amount" readOnly style={{ width: '3ch' }} />
               </td>
               <td>
                 <button onClick={increaseValue}>+</button>
@@ -70,27 +64,24 @@ const Bar = ({ guest }) => {
     );
   };
 
-  const [payButton, setPayButton] = useState('Pay');
+  const storeBill = () => {
+    console.log('run_my');
+    const id = dbcon.getGuestId('Arne', 'Anka');
+    console.log(id);
+  };
 
   useEffect(() => {
-    const calculateBill = async () => {
-      console.log('calculateBill');
-      const id = dbcon.getGuestId('Arne', 'Anka');
-      console.log(id);
-    };
-    // The variable has changed value before it entre the rutine.
-    if (payButton === 'Paid') {
-      calculateBill();
+    const payB = async() => {
+      if (payButton === "Paid") {
+        storeBill(); 
+      }
     }
+    payB();
   }, [payButton]);
 
-  const Paying = ({ guest }) => {
-    console.log("Paying");
-    if (payButton === 'Pay') {
-      //saveBill(guest);
-      setPayButton('Paid');
-    } else {
-      setPayButton('Pay');
+  const trigPayBill = ({ guest }) => {
+    if (payButton === "Pay") {
+      setPayButton("Paid");
     }
   };
 
@@ -103,7 +94,7 @@ const Bar = ({ guest }) => {
         <div>
           <label htmlFor="textInput" className="longLabel">SUMMA: </label>
           <label htmlFor="textInput" className="longLabel">{billSum}</label>
-          <button onClick={Paying}>{payButton}</button>
+          <button onClick={trigPayBill}>{payButton}</button>
         </div>
       </div>
     );
@@ -119,11 +110,11 @@ const Bar = ({ guest }) => {
           },
         });
         const jsonData = await response.json();
-        setLines(jsonData);
+        setArticles(jsonData);
 
         // Create a new array initialized to 0 based on the length of jsonData
         const newValues = Array.from({ length: jsonData.length }, () => 0);
-        setValues(newValues);
+        setAmounts(newValues);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -139,7 +130,7 @@ const Bar = ({ guest }) => {
         {payRow({ guest })}
       </div>
       <div>
-        {lines.map((line, index) => (
+        {articles.map((line, index) => (
           <Line key={index} index={index} item={line} maxLabelLength='20ch' />
         ))}
       </div>
