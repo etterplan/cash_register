@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const API_BASE_URL = 'http://localhost:5000'; // 
-
-
 const Guests = ({ setGuest }) => {
     const [data, setData] = useState([]);
     const [selectedName, setSelectedName] = useState('')    
@@ -12,9 +10,9 @@ const Guests = ({ setGuest }) => {
         setSortBy(sortBy === 'lastName' ? 'firstName' : 'lastName');
     };
 
-    const handleNameClick = (name) => {
-        setGuest(name);
-        setSelectedName(name)
+    const handleNameClick = (guest) => {
+        setGuest(guest);
+        setSelectedName(guest.firstName + ' ' + guest.lastName)
     };
 
     useEffect(() => {
@@ -44,7 +42,7 @@ const Guests = ({ setGuest }) => {
             <p><strong>Selected Name: {selectedName}</strong></p>
             <ul>
                 {data.map((guest) => (
-                    <li key={guest.id} onClick={() => handleNameClick(`${guest.firstName} ${guest.lastName}`)}>
+                    <li key={guest.id} onClick={() => handleNameClick(guest)}>
                         {guest.firstName} {guest.lastName}
                     </li>
                 ))}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as dbcon from '../components/dbconnection';
 import './bar.css';
 
 const API_BASE_URL = 'http://localhost:5000';
@@ -8,22 +9,20 @@ const Bar = ({ guest }) => {
   const [billSum, setBillSum] = useState(0);
   const [lines, setLines] = useState([]);
 
-  function fnk(line, index) {
+  const calculateSum = () => {
     let sum = 0;
-    console.log(line.price + ' : ' + values[index] + ' : ' + index);
-    sum = line.price * values[index];
-    return sum;
-  };
-
-  const calculateBill = () => {
-    let sum = 0;
-    {
-      lines.map((line, index) => (
-        sum += fnk(line, index)
-      ))
-    }
+    lines.map((line, index) => (
+      sum += (line.price * values[index])
+    ))
     setBillSum(sum);
   };
+
+  // function saveBill() {
+  //   let firstName = 'Arne';
+  //   let lastName = 'Anka';
+  //   result = useDataFetching(`http://localhost:5000/get_guest_id?firstName=${firstName}&lastName=${lastName}`);
+  //   console.log(result);
+  // }
 
   const Line = ({ index, item, maxLabelLength }) => {
     const [value, setValue] = useState(values[index]);
@@ -32,7 +31,7 @@ const Bar = ({ guest }) => {
       let newValue = value + 1;
       setValue(newValue);
       values[index] = newValue;
-      calculateBill();
+      calculateSum();
     };
 
     const decreaseValue = () => {
@@ -40,30 +39,32 @@ const Bar = ({ guest }) => {
         let newValue = value - 1;
         setValue(newValue);
         values[index] = newValue;
-        calculateBill();
+        calculateSum();
       }
     };
 
     return (
       <div>
         <table>
-          <tr>
-            <td>
-              <input value={item.article} class="article" readOnly style={{width: '25ch'}}/>
-            </td>
-            <td>
-              <input value={item.price} class="article" readOnly style={{width: '5ch'}}/>
-            </td>
-            <td>
-              <input value={values[index]} class="amount" readOnly style={{width: '3ch'}}/>
-            </td>
-            <td>
-              <button onClick={increaseValue}>+</button>
-            </td>
-            <td>
-              <button onClick={decreaseValue}>-</button>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <input value={item.article} className="article" readOnly style={{ width: '25ch' }} />
+              </td>
+              <td>
+                <input value={item.price} className="article" readOnly style={{ width: '5ch' }} />
+              </td>
+              <td>
+                <input value={values[index]} className="amount" readOnly style={{ width: '3ch' }} />
+              </td>
+              <td>
+                <button onClick={increaseValue}>+</button>
+              </td>
+              <td>
+                <button onClick={decreaseValue}>-</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -71,9 +72,22 @@ const Bar = ({ guest }) => {
 
   const [payButton, setPayButton] = useState('Pay');
 
-  const Paying = () => {
+  useEffect(() => {
+    const calculateBill = async () => {
+      console.log('calculateBill');
+      const id = dbcon.getGuestId('Arne', 'Anka');
+      console.log(id);
+    };
+    // The variable has changed value before it entre the rutine.
+    if (payButton === 'Paid') {
+      calculateBill();
+    }
+  }, [payButton]);
+
+  const Paying = ({ guest }) => {
     console.log("Paying");
     if (payButton === 'Pay') {
+      //saveBill(guest);
       setPayButton('Paid');
     } else {
       setPayButton('Pay');
@@ -82,9 +96,10 @@ const Bar = ({ guest }) => {
 
   // Function .......
   const payRow = ({ guest }) => {
+    let name = guest.firstName + ' ' + guest.lastName;
     return (
       <div>
-        <h1>Guest: {guest}</h1>
+        <h1>Guest: {name}</h1>
         <div>
           <label htmlFor="textInput" className="longLabel">SUMMA: </label>
           <label htmlFor="textInput" className="longLabel">{billSum}</label>
