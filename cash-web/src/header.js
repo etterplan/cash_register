@@ -6,7 +6,7 @@ import Bill from './pages/bill.js'
 import Settings from './pages/settings.js';
 
 function Header() {
-    const [guest, setGuest] = useState('Guest');
+    const [guest, setGuest] = useState('');
 
     return (
         <Router>

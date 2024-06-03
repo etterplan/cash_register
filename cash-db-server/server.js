@@ -14,9 +14,19 @@ prisma.$on('query', e => {
   console.log(e);
 });
 
-app.get('/guests', async (req, res) => {
+app.get('/all_guests', async (req, res) => {
   try {
     const result = await prisma.guests.findMany();
+    res.json(result);
+  } catch (error) {
+    console.error('Guests: Error retrieving data: ', error);
+    res.status(500).send('Guests: Internal Server Error');
+  }
+});
+
+app.get('/guests', async (req, res) => {
+  try {
+    const result = await prisma.guests.findFirst();
     res.json(result);
   } catch (error) {
     console.error('Guests: Error retrieving data: ', error);
@@ -34,7 +44,7 @@ app.post('/guests', async (req, res) => {
         email
       }
     });
-    
+
     res.json(result);
   } catch (error) {
     console.error('Guests: Error creating data: ', error);
@@ -87,7 +97,7 @@ app.post('/articles', async (req, res) => {
         price
       }
     });
-    
+
     res.json(result);
   } catch (error) {
     console.error('Articles: Error creating data: ', error);
@@ -115,13 +125,31 @@ app.post('/baraccount', async (req, res) => {
         purchase_id
       }
     });
-    
+
     res.json(result);
   } catch (error) {
     console.error('BarAccount: Error creating data: ', error);
     res.status(500).send('BarAccount: Internal Server Error - ' + error.message);
   }
 });
+
+app.get('/getlastpurchaseid', async (req, res) => {
+  try {
+    const result = await prisma.barAccount.findFirst({
+      select: {
+        purchase_id: true
+      },
+      orderBy: {
+        purchase_id: 'desc' // Assuming there's a timestamp field like createdAt to determine the latest entry
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('getLastPurchaseId: Error creating data: ', error);
+    res.status(500).send('getLastPurchaseId: Internal Server Error - ' + error.message);
+  }
+ });
 
 app.get('/purchase', async (req, res) => {
   try {
@@ -144,7 +172,7 @@ app.post('/purchase', async (req, res) => {
         price
       }
     });
-    
+
     res.json(result);
   } catch (error) {
     console.error('Purchase: Error creating data: ', error);

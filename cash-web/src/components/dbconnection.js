@@ -11,13 +11,14 @@ export async function addArticle(article, price) {
     createRow('articles', data);
 }
 
-export async function addBarAccount(guestId, time, purchaseId) {
-    const data = { guestId, time, purchaseId };
+export async function addBarAccount(guest_id, time, purchase_id) {
+    const data = { guest_id, time, purchase_id };
     createRow('baraccount', data);
 }
 
-export async function addPurchase(purchaseId, article, amout, price) {
-    const data = { purchaseId, article, amout, price };
+export async function addPurchase(purchase_id, article, amout, price) {
+    const data = { purchase_id, article, amout, price };
+    //console.log(data);
     createRow('purchase', data);
 }
 
@@ -33,19 +34,38 @@ export function fetchData(callback) {
     console.log(new Date());
 }
 
-export function getLastPurchaseId() {
-    // TODO:
-    return 1000;
+export async function getLastPurchaseId() {
+    const url = `${URL}/getlastpurchaseid`;
+    let response = await fetch(url);
+    if (response.status === 200) {
+        let json = await response.json();
+
+        if (json && json.purchase_id) {
+            // Parse the purchase_id value as an integer and return
+            const purchaseId = parseInt(json.purchase_id, 10);
+            //console.log(json.purchase_id);
+            return 1003;            
+            //return purchaseId;
+        } else {
+            throw new Error('Purchase ID not found in response');
+        }
+    }
+
+    throw new Error(response.status);
 }
 
 export async function getGuestId(firstName, lastName) {
-    const url = `http://localhost:5000/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
+    const url = `${URL}/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
     let response = await fetch(url);
-    console.log(response.status);
     if (response.status === 200) {
         let json = await response.json();
-        console.log(json);
-        return json;
+
+        // Make sure id exist before return.
+        if (json && json[0].id) {
+            return json;
+        } else {
+            throw new Error('Guest ID not found in response');
+        }
     }
 
     throw new Error(response.status);
@@ -53,7 +73,6 @@ export async function getGuestId(firstName, lastName) {
 
 async function createRow(table, data) {
     try {
-        console.log(`${URL}/${table}`)
         const response = await fetch(`${URL}/${table}`, {
             method: 'POST',
             headers: {

@@ -18,7 +18,7 @@ const Guests = ({ setGuest }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${API_BASE_URL}/guests`, {
+                const response = await fetch(`${API_BASE_URL}/all_guests`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

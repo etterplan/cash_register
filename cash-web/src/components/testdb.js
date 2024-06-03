@@ -33,3 +33,18 @@ export function populateTableArticles() {
         dbcon.addArticle(article, price);
     });   
 }
+
+export function populateTableBarAccount() {
+    console.log('Populate table BarAccount:');
+    const table = [
+        [ 100, 'time', 1000], 
+        [ 101, 'time', 1001], 
+        [ 102, 'time', 1002]
+    ];
+
+    table.forEach(data => {
+        console.log(data);
+        const [guest_id, time, purchase_id] = data;
+        dbcon.addBarAccount(guest_id, time, purchase_id);
+    });   
+}

@@ -1,14 +1,18 @@
 import React from 'react';
-import { populateTableGuests, populateTableArticles } from '../components/testdb'
+import * as testDB from '../components/testdb'
 
 function Settings() {
 
   const initTableGuests = () => {
-    populateTableGuests();
+    testDB.populateTableGuests();
   };
 
   const initTableArticles = () => {
-    populateTableArticles();
+    testDB.populateTableArticles();
+  };
+
+  const initTableBarAccount = () => {
+    testDB.populateTableBarAccount();
   };
 
   return (
@@ -21,6 +25,9 @@ function Settings() {
         </li>
         <li style={{ marginBottom: '10px' }}>
           <button onClick={initTableArticles}>Initialize table Articles</button>
+        </li>
+        <li style={{ marginBottom: '10px' }}>
+          <button onClick={initTableBarAccount}>Initialize table BarAccount</button>
         </li>
       </ul>
     </div>
