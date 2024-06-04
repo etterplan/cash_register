@@ -11,8 +11,8 @@ function Settings() {
     testDB.populateTableArticles();
   };
 
-  const initTableBarAccount = () => {
-    testDB.populateTableBarAccount();
+  const initTablePurchase = () => {
+    testDB.populateTablePurchase();
   };
 
   return (
@@ -27,7 +27,7 @@ function Settings() {
           <button onClick={initTableArticles}>Initialize table Articles</button>
         </li>
         <li style={{ marginBottom: '10px' }}>
-          <button onClick={initTableBarAccount}>Initialize table BarAccount</button>
+          <button onClick={initTablePurchase}>Initialize table Purchase</button>
         </li>
       </ul>
     </div>

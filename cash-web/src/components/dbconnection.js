@@ -11,15 +11,15 @@ export async function addArticle(article, price) {
     createRow('articles', data);
 }
 
-export async function addBarAccount(guest_id, time, purchase_id) {
+export async function addPurchase(guest_id, time, purchase_id) {
     const data = { guest_id: parseInt(guest_id, 10), time, purchase_id };
     console.log(data);
-    createRow('baraccount', data);
+    createRow('purchase', data);
 }
 
-export async function addPurchase(purchase_id, article, amount, price) {
+export async function addPurchaseDetails(purchase_id, article, amount, price) {
     const data = { purchase_id, article, amount, price };
-    createRow('purchase', data);
+    createRow('purchasedetails', data);
 }
 
 export function fetchData(callback) {

@@ -99,14 +99,14 @@ const ArticleTables = ({ guest_id }) => {
         }
     };
 
-    const savePurchase = ({ purchase_id, articles, amount }) => {
+    const savePurchaseDetails = ({ purchase_id, articles, amount }) => {
         amount.forEach((element, index) => {
             // Save only bought products
             if (element > 0) {
                 console.log(purchase_id + ', ' + articles[index].article + ', ' +
                     element + ', ' + articles[index].price);
-                dbcon.addPurchase(purchase_id, articles[index].article,
-                    'element', articles[index].price);
+                dbcon.addPurchaseDetails(purchase_id, articles[index].article,
+                    element, articles[index].price);
             }
         });
     }
@@ -117,10 +117,10 @@ const ArticleTables = ({ guest_id }) => {
             .then(lastPurchase => {
                 let purchase_id = lastPurchase.purchase_id + 1;
                 // Save all articles 
-                savePurchase({ purchase_id, articles, amount });
+                savePurchaseDetails({ purchase_id, articles, amount });
                 // Create a new purchase (connect customer with purchase)
                 let time = getCurrentSwedenTime();
-                dbcon.addBarAccount(guest_id, time, purchase_id);
+                dbcon.addPurchase(guest_id, time, purchase_id);
             })
             .catch(error => {
                 console.error('Error fetching the last purchase: ', error);

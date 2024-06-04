@@ -18,13 +18,13 @@ export function populateTableGuests() {
 export function populateTableArticles() {
     console.log('Populate table Articles:');
     const table = [
-        [ 'Mat', '240' ], 
-        [ 'Vin', '50' ],
-        [ 'Schnaps', '40' ],
-        [ 'Öl', '40' ],
-        [ 'Öl alk.fri', '20' ],
-        [ 'Vin alk.fri', '30' ],
-        [ 'Skärv', '40' ]
+        [ 'Mat', 240 ], 
+        [ 'Vin', 50 ],
+        [ 'Snaps', 40 ],
+        [ 'Öl', 40 ],
+        [ 'Öl alk.fri', 20 ],
+        [ 'Vin alk.fri', 30 ],
+        [ 'Skärv', 0 ]
     ];
 
     table.forEach(data => {
@@ -34,17 +34,15 @@ export function populateTableArticles() {
     });   
 }
 
-export function populateTableBarAccount() {
+export function populateTablePurchase() {
     console.log('Populate table BarAccount:');
     const table = [
-        [ 100, 'time', 1000], 
-        [ 101, 'time', 1001], 
-        [ 102, 'time', 1002]
+        [ 0, '??:??:??', 1000]
     ];
 
     table.forEach(data => {
         console.log(data);
         const [guest_id, time, purchase_id] = data;
-        dbcon.addBarAccount(guest_id, time, purchase_id);
+        dbcon.addPurchase(guest_id, time, purchase_id);
     });   
 }

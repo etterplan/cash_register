@@ -105,52 +105,6 @@ app.post('/articles', async (req, res) => {
   }
 });
 
-app.get('/baraccount', async (req, res) => {
-  try {
-    const result = await prisma.barAccount.findMany();
-    res.json(result);
-  } catch (error) {
-    console.error('BarAccount: Error retrieving data: ', error);
-    res.status(500).send('BarAccount: Internal Server Error');
-  }
-});
-
-app.post('/baraccount', async (req, res) => {
-  const { guest_id, time, purchase_id } = req.body;
-  try {
-    const result = await prisma.barAccount.create({
-      data: {
-        guest_id,
-        time,
-        purchase_id
-      }
-    });
-
-    res.json(result);
-  } catch (error) {
-    console.error('BarAccount: Error creating data: ', error);
-    res.status(500).send('BarAccount: Internal Server Error - ' + error.message);
-  }
-});
-
-app.get('/getlastpurchaseid', async (req, res) => {
-  try {
-    const result = await prisma.barAccount.findFirst({
-      select: {
-        purchase_id: true
-      },
-      orderBy: {
-        purchase_id: 'desc' // Assuming there's a timestamp field like createdAt to determine the latest entry
-      }
-    });
-
-    res.json(result);
-  } catch (error) {
-    console.error('getLastPurchaseId: Error creating data: ', error);
-    res.status(500).send('getLastPurchaseId: Internal Server Error - ' + error.message);
-  }
- });
-
 app.get('/purchase', async (req, res) => {
   try {
     const result = await prisma.purchase.findMany();
@@ -162,9 +116,55 @@ app.get('/purchase', async (req, res) => {
 });
 
 app.post('/purchase', async (req, res) => {
-  const { purchase_id, article, amount, price } = req.body;
+  const { guest_id, time, purchase_id } = req.body;
   try {
     const result = await prisma.purchase.create({
+      data: {
+        guest_id,
+        time,
+        purchase_id
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('Purchase: Error creating data: ', error);
+    res.status(500).send('Purchase: Internal Server Error - ' + error.message);
+  }
+});
+
+app.get('/getlastpurchaseid', async (req, res) => {
+  try {
+    const result = await prisma.purchase.findFirst({
+      select: {
+        purchase_id: true
+      },
+      orderBy: {
+        purchase_id: 'desc' 
+      }
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('GetLastPurchaseId: Error creating data: ', error);
+    res.status(500).send('GetLastPurchaseId: Internal Server Error - ' + error.message);
+  }
+ });
+
+app.get('/purchasedetails', async (req, res) => {
+  try {
+    const result = await prisma.purchaseDetails.findMany();
+    res.json(result);
+  } catch (error) {
+    console.error('Purchase: Error retrieving data: ', error);
+    res.status(500).send('Purchase: Internal Server Error');
+  }
+});
+
+app.post('/purchasedetails', async (req, res) => {
+  const { purchase_id, article, amount, price } = req.body;
+  try {
+    const result = await prisma.purchaseDetails.create({
       data: {
         purchase_id,
         article,
