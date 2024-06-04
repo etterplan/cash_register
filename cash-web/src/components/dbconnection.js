@@ -12,13 +12,13 @@ export async function addArticle(article, price) {
 }
 
 export async function addBarAccount(guest_id, time, purchase_id) {
-    const data = { guest_id, time, purchase_id };
+    const data = { guest_id: parseInt(guest_id, 10), time, purchase_id };
+    console.log(data);
     createRow('baraccount', data);
 }
 
-export async function addPurchase(purchase_id, article, amout, price) {
-    const data = { purchase_id, article, amout, price };
-    //console.log(data);
+export async function addPurchase(purchase_id, article, amount, price) {
+    const data = { purchase_id, article, amount, price };
     createRow('purchase', data);
 }
 
@@ -41,11 +41,7 @@ export async function getLastPurchaseId() {
         let json = await response.json();
 
         if (json && json.purchase_id) {
-            // Parse the purchase_id value as an integer and return
-            const purchaseId = parseInt(json.purchase_id, 10);
-            //console.log(json.purchase_id);
-            return 1003;            
-            //return purchaseId;
+            return json;
         } else {
             throw new Error('Purchase ID not found in response');
         }
