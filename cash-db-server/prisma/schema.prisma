@@ -17,20 +17,20 @@ model Guests {
 model Articles {
   id        Int     @id @default(autoincrement())
   article   String
-  price     String
+  price     Int
 }
 
-model BarAccount {
+model Purchase {
   id          Int     @id @default(autoincrement())
   guest_id    Int
   time        String
   purchase_id Int
 }
 
-model Purchase {
+model PurchaseDetails {
   id          Int     @id @default(autoincrement())
   purchase_id Int
   article     String
-  amount      String
-  price       String
+  amount      Int
+  price       Int
 }
