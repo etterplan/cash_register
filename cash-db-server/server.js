@@ -180,19 +180,19 @@ app.post('/purchasedetails', async (req, res) => {
   }
 });
 
-const getAllPurchaseDetails = async (purchase) => {
+const getAllPurchaseDetails = async (purchases) => {
   try {
-    let allResults = [];
-    await Promise.all(purchase.map(async (element) => {
-      const result = await prisma.purchaseDetails.findMany({
+    let results = [];
+    
+    await Promise.all(purchases.map(async (pchase) => {    
+      const purDetails = await prisma.purchaseDetails.findMany({
         where: {
-          purchase_id: element.purchase_id
+          purchase_id: pchase.purchase_id
         }
       });
-      console.log(result);
-      allResults.push(result);
+      results.push( {purchase: pchase, details: purDetails});
     }));
-    return allResults;
+    return results;
   } catch (error) {
     console.error(error);
     return null;
@@ -209,7 +209,6 @@ const getPurchase = async (guestId) => {
         purchase_id: 'desc'
       }
     });
-    console.log(result);
     return result;
   } catch (error) {
     console.error('GetBillData: Error retrieving data: ', error);
@@ -226,14 +225,11 @@ app.get('/getbilldata', async (req, res) => {
       res.status(400).send('Invalid guest ID');
     }
 
-    console.log('getPurchase');
     const purchase = await getPurchase(guestId);
-    console.log('getAllPurchaseDetails');
-    const details = await getAllPurchaseDetails(purchase);
+    const purchaseAndDetails = await getAllPurchaseDetails(purchase);
+    console.log(purchaseAndDetails);
 
-    result = { purchase, details: [details] };
-    console.log(result);
-    return res.status(200).json(result);
+    return res.status(200).json(purchaseAndDetails);
   } catch (error) {
     console.error('Error retrieving bill data: ', error);
     res.status(500).send('Internal Server Error - ' + error.message);

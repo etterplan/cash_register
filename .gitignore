@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build/
+/build
 
 # misc
 .DS_Store
@@ -28,6 +28,7 @@ cash-db/database/
 # Cash-web
 cash-web/prisma/migrations/
 cash-db-server/prisma/migrations/
+cash-db-server/build/
 
 # DON'T SAVE THIS yet
 node_modules
