@@ -1,7 +1,6 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
-//const { getBillData } = require('../cash-web/src/components/dbconnection');
 require('dotenv').config();
 
 const app = express();
@@ -199,13 +198,6 @@ app.get('/getbilldata', async (req, res) => {
     const data = await getBillData(guestId);
     console.log("Waiting is over");
     return res.status(200).json(data);
-    // getBillData(guestId)
-    //   .then(data => {
-    //     console.log("Waiting is over");
-    //     res.status(200).json(bill);
-    //   });
-
-    //   res.status(400).send("Didn't found any bill data");
   } catch (error) {
     console.error('Error retrieving bill data: ', error);
     res.status(500).send('Internal Server Error - ' + error.message);

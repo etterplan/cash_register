@@ -23,8 +23,7 @@ export async function addPurchaseDetails(purchase_id, article, amount, price) {
 }
 
 export const getBillData = async (guestId) => {
-    console.log('getBillData: ' + guestId);
-    const url = `${URL}/getbilldata`;
+    const url = `${URL}/getbilldata?guestId=${guestId})`;
     let response = await fetch(url);
     if (response.status === 200) {
         let json = await response.json();
@@ -36,7 +35,7 @@ export const getBillData = async (guestId) => {
         //     throw new Error('Purchase ID not found in response');
         // }
     }
-
+    
     throw new Error(response.status);
 }
 

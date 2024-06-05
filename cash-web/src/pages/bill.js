@@ -6,13 +6,15 @@ const Bill = ({ guest }) => {
 
   useEffect(() => {
     if (guest !== '') {
-      setGuestName(`${guest.firstName} ${guest.lastName}`);
+      setGuestName(guest.firstName + ' ' + guest.lastName);
       dbcon.getBillData(guest.id)
-        .then(id => {
-          console.log(id);
+        .then(data => {
+          console.log('BillData: ');
+          console.log(data);
         });
     }
   }, [guest]);
+
 
   if (guest.id === undefined) {
     return (
