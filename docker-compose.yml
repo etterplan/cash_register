@@ -16,7 +16,8 @@ services:
     build: cash-db-server
     volumes:      
       - ./cash-db-server:/react/cash-db-server
-      - /react/cash-db-server/node_modules
+#      - /react/cash-db-server
+#      - /react/cash-db-server/node_modules
     networks:
       cash_register_default:
         ipv4_address: 172.18.0.3

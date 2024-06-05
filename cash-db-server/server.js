@@ -180,24 +180,60 @@ app.post('/purchasedetails', async (req, res) => {
   }
 });
 
-const getBillData = async (guestId) => {
-  console.log('Server: getBillData(): ' + guestId);
-  return { bill: 532, currency: 'sek' };
+const getAllPurchaseDetails = async (purchase) => {
+  try {
+    let allResults = [];
+    await Promise.all(purchase.map(async (element) => {
+      const result = await prisma.purchaseDetails.findMany({
+        where: {
+          purchase_id: element.purchase_id
+        }
+      });
+      console.log(result);
+      allResults.push(result);
+    }));
+    return allResults;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+const getPurchase = async (guestId) => {
+  try {
+    const result = await prisma.purchase.findMany({
+      where: {
+        guest_id: guestId
+      },
+      orderBy: {
+        purchase_id: 'desc'
+      }
+    });
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error('GetBillData: Error retrieving data: ', error);
+    res.status(500).send('GetBillData: Internal Server Error');
+  }
 }
 
 app.get('/getbilldata', async (req, res) => {
 
   try {
     const guestId = parseInt(req.query.guestId, 10);
-    console.log('Server: /getBillData: ' + guestId);
 
     if (isNaN(guestId)) {
       res.status(400).send('Invalid guest ID');
     }
 
-    const data = await getBillData(guestId);
-    console.log("Waiting is over");
-    return res.status(200).json(data);
+    console.log('getPurchase');
+    const purchase = await getPurchase(guestId);
+    console.log('getAllPurchaseDetails');
+    const details = await getAllPurchaseDetails(purchase);
+
+    result = { purchase, details: [details] };
+    console.log(result);
+    return res.status(200).json(result);
   } catch (error) {
     console.error('Error retrieving bill data: ', error);
     res.status(500).send('Internal Server Error - ' + error.message);
