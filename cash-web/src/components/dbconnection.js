@@ -22,6 +22,24 @@ export async function addPurchaseDetails(purchase_id, article, amount, price) {
     createRow('purchasedetails', data);
 }
 
+export const getBillData = async (guestId) => {
+    console.log('getBillData: ' + guestId);
+    const url = `${URL}/getbilldata`;
+    let response = await fetch(url);
+    if (response.status === 200) {
+        let json = await response.json();
+        return json;
+
+        // if (json && json.purchase_id) {
+        //     return json;
+        // } else {
+        //     throw new Error('Purchase ID not found in response');
+        // }
+    }
+
+    throw new Error(response.status);
+}
+
 export function fetchData(callback) {
     // Simulating an asynchronous operation
     console.log(new Date());

@@ -22,7 +22,7 @@ function Header() {
             <Routes>
                 <Route path="/" element={<Guests setGuest={setGuest} />} />
                 <Route path="/bar" element={<Bar guest={guest} />} />
-                <Route path="/bill" element={<Bill />} />
+                <Route path="/bill" element={<Bill guest={guest}  />} />
                 <Route path="/settings" element={<Settings />} />
             </Routes>
 

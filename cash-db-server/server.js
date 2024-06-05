@@ -1,6 +1,7 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
+//const { getBillData } = require('../cash-web/src/components/dbconnection');
 require('dotenv').config();
 
 const app = express();
@@ -140,7 +141,7 @@ app.get('/getlastpurchaseid', async (req, res) => {
         purchase_id: true
       },
       orderBy: {
-        purchase_id: 'desc' 
+        purchase_id: 'desc'
       }
     });
 
@@ -149,7 +150,7 @@ app.get('/getlastpurchaseid', async (req, res) => {
     console.error('GetLastPurchaseId: Error creating data: ', error);
     res.status(500).send('GetLastPurchaseId: Internal Server Error - ' + error.message);
   }
- });
+});
 
 app.get('/purchasedetails', async (req, res) => {
   try {
@@ -179,6 +180,38 @@ app.post('/purchasedetails', async (req, res) => {
     res.status(500).send('Purchase: Internal Server Error - ' + error.message);
   }
 });
+
+const getBillData = async (guestId) => {
+  console.log('Server: getBillData(): ' + guestId);
+  return { bill: 532, currency: 'sek' };
+}
+
+app.get('/getbilldata', async (req, res) => {
+
+  try {
+    const guestId = parseInt(req.query.guestId, 10);
+    console.log('Server: /getBillData: ' + guestId);
+
+    if (isNaN(guestId)) {
+      res.status(400).send('Invalid guest ID');
+    }
+
+    const data = await getBillData(guestId);
+    console.log("Waiting is over");
+    return res.status(200).json(data);
+    // getBillData(guestId)
+    //   .then(data => {
+    //     console.log("Waiting is over");
+    //     res.status(200).json(bill);
+    //   });
+
+    //   res.status(400).send("Didn't found any bill data");
+  } catch (error) {
+    console.error('Error retrieving bill data: ', error);
+    res.status(500).send('Internal Server Error - ' + error.message);
+  }
+});
+
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${port}`);
