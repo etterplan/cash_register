@@ -29,6 +29,7 @@ cash-db/database/
 cash-web/prisma/migrations/
 cash-db-server/prisma/migrations/
 cash-db-server/build/
+cash-web/build/
 
 # DON'T SAVE THIS yet
 node_modules

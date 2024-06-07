@@ -12,6 +12,9 @@ npm install express
 # Install project dependencies
 npm install
 
+# Rebuild the server.
+npm run build
+
 # Start the server application
 npm start
 
