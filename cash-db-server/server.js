@@ -1,7 +1,6 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
-//const { getBillData } = require('../cash-web/src/components/dbconnection');
 require('dotenv').config();
 
 const app = express();
@@ -181,31 +180,56 @@ app.post('/purchasedetails', async (req, res) => {
   }
 });
 
-const getBillData = async (guestId) => {
-  console.log('Server: getBillData(): ' + guestId);
-  return { bill: 532, currency: 'sek' };
+const getAllPurchaseDetails = async (purchases) => {
+  try {
+    let results = [];
+    
+    await Promise.all(purchases.map(async (pchase) => {    
+      const purDetails = await prisma.purchaseDetails.findMany({
+        where: {
+          purchase_id: pchase.purchase_id
+        }
+      });
+      results.push( {purchase: pchase, details: purDetails});
+    }));
+    return results;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+const getPurchase = async (guestId) => {
+  try {
+    const result = await prisma.purchase.findMany({
+      where: {
+        guest_id: guestId
+      },
+      orderBy: {
+        purchase_id: 'desc'
+      }
+    });
+    return result;
+  } catch (error) {
+    console.error('GetBillData: Error retrieving data: ', error);
+    res.status(500).send('GetBillData: Internal Server Error');
+  }
 }
 
 app.get('/getbilldata', async (req, res) => {
 
   try {
     const guestId = parseInt(req.query.guestId, 10);
-    console.log('Server: /getBillData: ' + guestId);
 
     if (isNaN(guestId)) {
       res.status(400).send('Invalid guest ID');
     }
 
-    const data = await getBillData(guestId);
-    console.log("Waiting is over");
-    return res.status(200).json(data);
-    // getBillData(guestId)
-    //   .then(data => {
-    //     console.log("Waiting is over");
-    //     res.status(200).json(bill);
-    //   });
+    const purchase = await getPurchase(guestId);
+    const purchaseAndDetails = await getAllPurchaseDetails(purchase);
+    console.log(purchaseAndDetails);
 
-    //   res.status(400).send("Didn't found any bill data");
+    return res.status(200).json(purchaseAndDetails);
   } catch (error) {
     console.error('Error retrieving bill data: ', error);
     res.status(500).send('Internal Server Error - ' + error.message);

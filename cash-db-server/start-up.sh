@@ -24,6 +24,9 @@ npx prisma migrate dev --name init
 # Generate Prisma Client
 npx prisma generate
 
+# Rebuild the server.
+npm run build
+
 # Start the server application
 node server.js
 
