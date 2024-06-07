@@ -4,6 +4,7 @@ import Guests from './pages/guests.js'
 import Bar from './pages/bar.js'
 import Bill from './pages/bill.js'
 import Settings from './pages/settings.js';
+import TestPage from './pages/test-page.js';
 
 function Header() {
     const [guest, setGuest] = useState('');
@@ -16,6 +17,7 @@ function Header() {
                     <Link to="/bar" style={{ fontSize: '2em', textAlign: 'center' }}>Bar</Link>
                     <Link to="/bill" style={{ fontSize: '2em', textAlign: 'center' }}>Account</Link>
                     <Link to="/settings" style={{ fontSize: '2em', textAlign: 'center' }}>Settings</Link>
+                    <Link to="/test-page" style={{ fontSize: '2em', textAlign: 'center' }}>Test-page</Link>
                 </div>
             </header>
 
@@ -24,6 +26,7 @@ function Header() {
                 <Route path="/bar" element={<Bar guest={guest} />} />
                 <Route path="/bill" element={<Bill guest={guest}  />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/test-page" element={<TestPage />} />
             </Routes>
 
         </Router>
