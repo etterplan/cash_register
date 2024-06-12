@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { GuestContext } from '../context/guest_provider'
 
 const API_BASE_URL = 'http://localhost:5000'; // 
-const Guests = ({ setGuest }) => {
+const Guests = () => {
+    const { _, setGuest } = useContext(GuestContext);
     const [data, setData] = useState([]);
     const [selectedName, setSelectedName] = useState('')    
     const [sortBy, setSortBy] = useState('lastName');

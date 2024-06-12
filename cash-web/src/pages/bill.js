@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as dbcon from '../components/dbconnection'
+import { GuestContext } from '../context/guest_provider';
 
 const purchaseSum = (details) => {
   console.log(details);
@@ -65,12 +66,14 @@ const BillTable = ({ billData }) => {
 //   );
 // };
 
-const Bill = ({ guest }) => {
+const Bill = () => {
+  const { guest } = useContext(GuestContext);
+
   const [guestName, setGuestName] = useState('');
   const [billData, setBillData] = useState([]);
 
   useEffect(() => {
-    if (guest !== '') {
+    if (guest.id !== -1) {
       setGuestName(guest.firstName + ' ' + guest.lastName);
       dbcon.getBillData(guest.id)
         .then(data => {
@@ -80,7 +83,7 @@ const Bill = ({ guest }) => {
   }, [guest]);
 
 
-  if (guest.id === undefined) {
+  if (guest.id === -1) {
     return (
       <div>
         <h1>Ingen gäst vald</h1>
