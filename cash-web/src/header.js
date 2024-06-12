@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Guests from './pages/guests.js'
-import Bar from './pages/bar.js'
+import Bar from './pages/bar/bar.js'
 import Bill from './pages/bill.js'
 import Settings from './pages/settings.js';
 import TestPage from './pages/test-page.js';

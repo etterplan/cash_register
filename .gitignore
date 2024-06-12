@@ -33,3 +33,8 @@ cash-web/build/
 
 # DON'T SAVE THIS yet
 node_modules
+
+# Temporary
+bar_old.js
+bar_old.css
+

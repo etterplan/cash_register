@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import * as dbcon from '../components/dbconnection'
+import * as dbcon from '../../components/dbconnection'
 
 const API_BASE_URL = 'http://localhost:5000';
 
