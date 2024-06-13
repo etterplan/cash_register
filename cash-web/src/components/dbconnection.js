@@ -1,6 +1,3 @@
-//const URL = 'http://172.18.0.3:5000';
-const URL = 'http://localhost:5000';
-
 export async function addGuest(firstName, lastName, email) {
     const data = { firstName, lastName, email };
     createRow('guests', data);
@@ -47,7 +44,7 @@ export function fetchData(callback) {
 }
 
 export async function getLastPurchaseId() {
-    const url = `${URL}/getlastpurchaseid`;
+    const url = `${process.env.DB_SERVER_API}/getlastpurchaseid`;
     let response = await fetch(url);
     if (response.status === 200) {
         let json = await response.json();
@@ -63,7 +60,7 @@ export async function getLastPurchaseId() {
 }
 
 export async function getGuestId(firstName, lastName) {
-    const url = `${URL}/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
+    const url = `${process.env.DB_SERVER_API}/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
     let response = await fetch(url);
     if (response.status === 200) {
         let json = await response.json();
@@ -81,7 +78,7 @@ export async function getGuestId(firstName, lastName) {
 
 async function createRow(table, data) {
     try {
-        const response = await fetch(`${URL}/${table}`, {
+        const response = await fetch(`${process.env.DB_SERVER_API}/${table}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

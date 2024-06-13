@@ -1,6 +1,6 @@
 import React from 'react';
 import Guests from './pages/guests'
-import Bar from './pages/bar'
+import Bar from './pages/bar/bar'
 import Bill from './pages/bill'
 import Settings from './pages/settings'
 

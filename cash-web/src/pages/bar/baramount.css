@@ -1,0 +1,14 @@
+.input-with-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.input-box {
+    text-align: right;
+}
+
+.button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
