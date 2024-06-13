@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
+import BarAmount from './baramount';
 
-function BarRow(props) {
+const BarRow = ({article, onChange}) => {
 
     return (
         <>
             <tr>
                 <td>
-                    <input value={props.article} />
+                    <label>{article.article}</label>
+                </td>
+                <td style={{ textAlign: 'right' }}>
+                    <label>{article.price}</label>
                 </td>
                 <td>
-                    <input value={props.price} />
+                    <BarAmount article={article} onChange={onChange}/>
                 </td>
             </tr>
         </>
