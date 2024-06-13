@@ -19,7 +19,6 @@ function Header() {
                         <Link to="/bar" style={{ fontSize: '2em', textAlign: 'center' }}>Bar</Link>
                         <Link to="/bill" style={{ fontSize: '2em', textAlign: 'center' }}>Account</Link>
                         <Link to="/settings" style={{ fontSize: '2em', textAlign: 'center' }}>Settings</Link>
-                        <Link to="/test-page" style={{ fontSize: '2em', textAlign: 'center' }}>Test-page</Link>
                     </div>
                 </header>
 
@@ -28,7 +27,6 @@ function Header() {
                     <Route path="/bar" element={<Bar />} />
                     <Route path="/bill" element={<Bill />} />
                     <Route path="/settings" element={<Settings />} />
-                    <Route path="/test-page" element={<TestPage />} />
                 </Routes>
             </GuestProvider>
         </Router>
