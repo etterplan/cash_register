@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 
 const URL_DB_SERVER = "http://localhost:5000";
 
-const useFetchData = (endpoint, setData) => {
+const useFetchAllGuests = (setData) => {
     useEffect(() => {
-        fetch(`${URL_DB_SERVER}/${endpoint}`)
+        fetch(`${URL_DB_SERVER}/all_guests`)
             .then((res) => res.json())
             .then((data) => setData(data));
-    }, [endpoint, setData]);
+    }, [setData]);
 };
 
-export default useFetchData;
+export default useFetchAllGuests;
