@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import * as dbcon from '../components/dbconnection'
 import { GuestContext } from '../context/guest_provider';
+import useFetchBillData from '../hooks/usefetchbilldata';
 
 const purchaseSum = (details) => {
   console.log(details);
@@ -45,43 +45,11 @@ const BillTable = ({ billData }) => {
   );
 };
 
-
-// const BillTable = ({ billData }) => {
-
-//   return (
-//     <div>
-//       <ul>
-//         {billData.map((data, index) => (
-//           <li key={index}>
-//             {data.purchase.time} Summa: {purchaseSum(data.details)} kr
-//             <ul>
-//               {data.details.map((detail, index) => (
-//                 <li key={index}>{detail.article} {detail.amount} {detail.price}</li>
-//               ))}
-//             </ul>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
 const Bill = () => {
   const { guest } = useContext(GuestContext);
-
-  const [guestName, setGuestName] = useState('');
   const [billData, setBillData] = useState([]);
 
-  useEffect(() => {
-    if (guest.id !== -1) {
-      setGuestName(guest.firstName + ' ' + guest.lastName);
-      dbcon.getBillData(guest.id)
-        .then(data => {
-          setBillData(data);
-        });
-    }
-  }, [guest]);
-
+  useFetchBillData(guest.id, setBillData);
 
   if (guest.id === -1) {
     return (
@@ -93,7 +61,7 @@ const Bill = () => {
 
   return (
     <div>
-      <h1>Gäst: {guestName}</h1>
+      <h1>{`Gäst: ${guest.firstName} ${guest.lastName}`}</h1>
       <BillTable billData={billData} />
     </div>
   );
