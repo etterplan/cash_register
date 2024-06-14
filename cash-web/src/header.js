@@ -5,10 +5,9 @@ import Guests from './pages/guests.js'
 import Bar from './pages/bar/bar.js'
 import Bill from './pages/bill.js'
 import Settings from './pages/settings.js';
-import TestPage from './pages/test-page.js';
 
 function Header() {
-    //const [guest, setGuest] = useState('');
+    const [guest, setGuest] = useState([{id: -1, firstName: 'Okänd', lastName: '', email: ''}]);
 
     return (
         <Router>

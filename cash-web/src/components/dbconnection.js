@@ -19,62 +19,50 @@ export async function addPurchaseDetails(purchase_id, article, amount, price) {
     createRow('purchasedetails', data);
 }
 
-export const getBillData = async (guestId) => {
-    const url = `${URL}/getbilldata?guestId=${guestId})`;
-    let response = await fetch(url);
-    if (response.status === 200) {
-        let json = await response.json();
-        console.log(json);
-        return json;
-    }
-    
-    throw new Error(response.status);
-}
+// export function fetchData(callback) {
+//     // Simulating an asynchronous operation
+//     console.log(new Date());
 
-export function fetchData(callback) {
-    // Simulating an asynchronous operation
-    console.log(new Date());
+//     setTimeout(() => {
+//         const data = 'Some fetched data';
+//         callback(data); // Calling the callback function with the fetched data
+//     }, 20000);
 
-    setTimeout(() => {
-        const data = 'Some fetched data';
-        callback(data); // Calling the callback function with the fetched data
-    }, 20000);
+//     console.log(new Date());
+// }
 
-    console.log(new Date());
-}
+// export async function getLastPurchaseId() {
+//     const url = `${process.env.DB_SERVER_API}/getlastpurchaseid`;
+//     let response = await fetch(url);
+//     if (response.status === 200) {
+//         let json = await response.json();
 
-export async function getLastPurchaseId() {
-    const url = `${process.env.DB_SERVER_API}/getlastpurchaseid`;
-    let response = await fetch(url);
-    if (response.status === 200) {
-        let json = await response.json();
+//         if (json && json.purchase_id) {
+//             return json;
+//         } else {
+//             throw new Error('Purchase ID not found in response');
+//         }
+//     }
 
-        if (json && json.purchase_id) {
-            return json;
-        } else {
-            throw new Error('Purchase ID not found in response');
-        }
-    }
+//     throw new Error(response.status);
+// }
 
-    throw new Error(response.status);
-}
+// export async function getGuestId(firstName, lastName) {
+//     const url = `${process.env.DB_SERVER_API}/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
+//     let response = await fetch(url);
+//     if (response.status === 200) {
+//         let json = await response.json();
 
-export async function getGuestId(firstName, lastName) {
-    const url = `${process.env.DB_SERVER_API}/get_guest_id?firstName=${firstName}&lastName=${lastName}`;
-    let response = await fetch(url);
-    if (response.status === 200) {
-        let json = await response.json();
+//         // Make sure id exist before return.
+//         if (json && json[0].id) {
+//             return json;
+//         } else {
+//             throw new Error('Guest ID not found in response');
+//         }
+//     }
 
-        // Make sure id exist before return.
-        if (json && json[0].id) {
-            return json;
-        } else {
-            throw new Error('Guest ID not found in response');
-        }
-    }
-
-    throw new Error(response.status);
-}
+//     throw new Error(response.status);
+// }
 
 async function createRow(table, data) {
     try {

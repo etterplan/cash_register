@@ -5,7 +5,8 @@ export function populateTableGuests() {
     const table = [
         [ 'Arne', 'Anka', 'arne.anka@gmail.com' ], 
         [ 'Åsa', 'Karlsson', 'asa.karlsson@gmail.com' ],
-        [ 'Cecila', 'Östman', 'cecila.ostman@gmail.com' ]
+        [ 'Cecila', 'Östman', 'cecila.ostman@gmail.com' ],
+        [ 'Thomas', 'Svensson', 'thomas.svensson@gmail.com' ]
     ];
 
     table.forEach(data => {
@@ -36,6 +37,7 @@ export function populateTableArticles() {
 
 export function populateTablePurchase() {
     console.log('Populate table BarAccount:');
+    // This table need an entry to simplefy the code.
     const table = [
         [ 0, '??:??:??', 1000]
     ];
