@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { GuestContext } from '../context/guest_provider'
-import useFetchData from '../hooks/usefetchfromdb';
+import useFetchAllGuests from '../hooks/usefetchallguests';
 
 const Guests = () => {
     const { _, setGuest } = useContext(GuestContext);
@@ -8,7 +8,7 @@ const Guests = () => {
     const [selectedName, setSelectedName] = useState('')
     const [sortBy, setSortBy] = useState('lastName');
 
-    useFetchData('all_guests', setGuests);
+    useFetchAllGuests(setGuests);
     console.log(guests);
 
     const handleSort = () => {

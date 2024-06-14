@@ -37,6 +37,7 @@ export function populateTableArticles() {
 
 export function populateTablePurchase() {
     console.log('Populate table BarAccount:');
+    // This table need an entry to simplefy the code.
     const table = [
         [ 0, '??:??:??', 1000]
     ];
