@@ -15,6 +15,12 @@ npm install @prisma/client
 # Install cors
 npm install cors
 
+# Install dotenv (.env)
+npm install dotenv
+
+# Install express
+npm install express
+
 # Install project dependencies
 npm install
 
@@ -25,10 +31,10 @@ npx prisma migrate dev --name init
 npx prisma generate
 
 # Rebuild the server.
-npm run build
+#npm run build
 
 # Start the server application
-node server.js
+#node src/server.js
 
 # Wait forever
-#sh -c "trap : TERM INT; sleep infinity & wait"
+sh -c "trap : TERM INT; sleep infinity & wait"
