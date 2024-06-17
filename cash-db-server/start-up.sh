@@ -34,7 +34,7 @@ npx prisma generate
 #npm run build
 
 # Start the server application
-#node src/server.js
+node src/server.js
 
 # Wait forever
-sh -c "trap : TERM INT; sleep infinity & wait"
+#sh -c "trap : TERM INT; sleep infinity & wait"
